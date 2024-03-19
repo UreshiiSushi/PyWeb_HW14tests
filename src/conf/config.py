@@ -1,0 +1,28 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+class Settings(BaseSettings):
+    sqlalchemy_database_url: str = Field(env="SQLALCHEMY_DATABASE_URL")
+    secret_key: str
+    algorithm: str
+    mail_username: str
+    mail_password: str
+    mail_from: str
+    mail_port: int
+    mail_server: str
+    redis_host: str = "localhost"
+    redis_port: int = 6379
+    cloudinary_name: str
+    cloudinary_api_key: str
+    cloudinary_api_secret: str
+
+    model_config = SettingsConfigDict(
+        env_file="../.env", env_file_encoding="utf-8", extra="ignore"
+    )
+
+
+settings = Settings()
